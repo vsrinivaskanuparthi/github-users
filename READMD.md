@@ -3,7 +3,8 @@
 ## By Srinivas Kanuparthi
 
 ## Description
-This Github User Lookup Application is a single page application that allows users to search for github users using their usernames and display the user's github information. With this application, a user is able to:
+This Github Users Application is a single page application that allows users to search for github users using their usernames and display the user's github information. With this application, a user is able to:
+* View list of github users.
 * Search for a github user using their username.
 * View a user's list of github repos.
 
