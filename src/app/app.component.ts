@@ -1,27 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GithubService } from './services/github.service';
+import { ModalController } from '@ionic/angular';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
-    this.initializeApp();
+export class AppComponent implements OnInit {
+  users;
+  ngOnInit() {
+    this.getUsers();
   }
+  constructor(private router: Router, private githubService: GithubService, public modalController: ModalController) { }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+  getUsers() {
+    this.githubService.getUsers().subscribe(data => {
+      this.users = data;
     });
   }
+
+  getUserDetails(userData) {
+
+    this.presentModal(userData);
+
+  }
+
+  async presentModal(user: any) {
+    const modal = await this.modalController.create({
+      component: UserDetailsComponent,
+      cssClass: 'send-deal-modal',
+      componentProps: {
+        user: user
+      }
+    });
+
+    // modal.onDidDismiss().then((result) => {
+    //   this.retrieveData();
+    // });
+    return await modal.present();
+  }
+
 }

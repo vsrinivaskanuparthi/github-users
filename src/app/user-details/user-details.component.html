@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-item lines="none">
+    <ion-icon name="close" class="clickable" (click)="dismiss()" slot="end"></ion-icon>
+  </ion-item>
+</ion-header>
+<ion-content>
+  <ion-card style="margin:0;">
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-grid>
+          <ion-card>
+            <ion-row class="ion-align-items-center">
+              <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                <ion-img [src]="user.avatar_url"></ion-img>
+              </ion-col>
+              <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                <strong>ID</strong>
+                <p>{{ user.id }}</p>
+              </ion-col>
+              <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                <h6>
+                  <strong>Name</strong>
+                </h6>
+                <p>{{ user.login }}</p>
+              </ion-col>
+              <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                <strong>Type</strong>
+                <p>{{ user.type }}</p>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-grid>
+      </ion-item>
+    </ion-card-header>
+    <h2>Repositories</h2>
+    <ion-spinner name="bubbles" *ngIf="spinner"></ion-spinner>
+    <ion-card-content>
+      <ion-list *ngFor="let repo of repos">
+        <ion-item lines="none">
+          <ion-grid>
+            <ion-card>
+              <ion-row class="ion-align-items-center">
+                <ion-col size="6">
+                  <strong>Title</strong>
+                  <p>{{ repo.name }}</p>
+                </ion-col>
+                <ion-col size="6">
+                  <h6>
+                    <strong>Link</strong>
+                  </h6>
+                  <a href="{{repo.html_url}}">View</a>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

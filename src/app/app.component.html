@@ -1,3 +1,36 @@
-<ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<ion-content>
+  <ion-card style="margin:0;">
+    <ion-card-header>
+      <ion-card-title>GitHub Users</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let user of users">
+        <ion-item lines="none">
+          <ion-grid>
+            <ion-card class="clickable" (click)="getUserDetails(user)">
+              <ion-row class="ion-align-items-center">
+                <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                  <ion-img [src]="user.avatar_url"></ion-img>
+                </ion-col>
+                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                  <strong>ID</strong>
+                  <p>{{ user.id }}</p>
+                </ion-col>
+                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                  <h6>
+                   <strong>Name</strong>
+                  </h6>
+                  <p>{{ user.login }}</p>
+                </ion-col>
+                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
+                  <strong>Type</strong>
+                  <p>{{ user.type }}</p>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
