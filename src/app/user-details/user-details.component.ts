@@ -16,6 +16,8 @@ export class UserDetailsComponent implements OnInit {
 
   repos: any;
   spinner = true;
+  noRepos = false;
+  searchList = false;
 
   constructor(private githubService: GithubService, public modalController: ModalController) { }
 
@@ -27,7 +29,12 @@ export class UserDetailsComponent implements OnInit {
   getUserRepose(userName) {
     this.githubService.getRepos(userName).subscribe(response => {
       this.spinner = false;
-      this.repos = response;
+      if (response && response instanceof Array && response.length) {
+        this.repos = response;
+      } else {
+        this.noRepos = true;
+        this.repos = [];
+      }
     });
   }
 

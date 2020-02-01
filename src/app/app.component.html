@@ -1,35 +1,88 @@
+<ion-header>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="filterItems(searchTerm)"></ion-searchbar>
+  <ion-list *ngIf="searchList">
+    <ion-item *ngFor="let user of filterList">
+      {{ user.login }}
+    </ion-item>
+  </ion-list>
+</ion-header>
 <ion-content>
   <ion-card style="margin:0;">
-    <ion-card-header>
-      <ion-card-title>GitHub Users</ion-card-title>
-    </ion-card-header>
     <ion-card-content>
-      <ion-list *ngFor="let user of users">
-        <ion-item lines="none">
-          <ion-grid>
-            <ion-card class="clickable" (click)="getUserDetails(user)">
-              <ion-row class="ion-align-items-center">
-                <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
-                  <ion-img [src]="user.avatar_url"></ion-img>
-                </ion-col>
-                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
-                  <strong>ID</strong>
-                  <p>{{ user.id }}</p>
-                </ion-col>
-                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
-                  <h6>
-                   <strong>Name</strong>
-                  </h6>
-                  <p>{{ user.login }}</p>
-                </ion-col>
-                <ion-col size-lg="3" size-md="5" size-sm="4" size="12">
-                  <strong>Type</strong>
-                  <p>{{ user.type }}</p>
-                </ion-col>
-              </ion-row>
-            </ion-card>
-          </ion-grid>
-        </ion-item>
+      <ion-row class="ion-align-items-center" *ngIf="users.length<=0">
+        <ion-spinner name="dots"></ion-spinner>
+      </ion-row>
+      <ion-list *ngIf="!searchList">
+        <ion-list *ngFor="let user of users">
+          <ion-item lines="none">
+            <ion-grid>
+              <ion-card>
+                <ion-row class="ion-align-items-center">
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-img [src]="user.avatar_url"></ion-img>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <h6>
+                      <strong>Name</strong>
+                    </h6>
+                    <p>{{ user.login }}</p>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <strong>Type</strong>
+                    <p>{{ user.type }}</p>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-button color="primary" (click)="openProfile(user)">Profile</ion-button>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-button color="primary" (click)="getUserDetails(user)">Repos</ion-button>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <strong>Site Admin</strong>
+                    <p *ngIf="user.site_admin===true">Yes</p>
+                    <p *ngIf="user.site_admin===false">No</p>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-list>
+      <ion-list *ngIf="searchList">
+        <ion-list *ngFor="let user of filterList">
+          <ion-item lines="none">
+            <ion-grid>
+              <ion-card>
+                <ion-row class="ion-align-items-center">
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-img [src]="user.avatar_url"></ion-img>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <h6>
+                      <strong>Name</strong>
+                    </h6>
+                    <p>{{ user.login }}</p>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <strong>Type</strong>
+                    <p>{{ user.type }}</p>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-button color="primary" (click)="openProfile(user)">Profile</ion-button>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <ion-button color="primary" (click)="getUserDetails(user)">Repos</ion-button>
+                  </ion-col>
+                  <ion-col size-lg="2" size-md="4" size-sm="3" size="12">
+                    <strong>Site Admin</strong>
+                    <p *ngIf="user.site_admin===true">Yes</p>
+                    <p *ngIf="user.site_admin===false">No</p>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
       </ion-list>
     </ion-card-content>
   </ion-card>

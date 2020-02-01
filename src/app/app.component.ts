@@ -11,7 +11,10 @@ import { UserDetailsComponent } from './user-details/user-details.component';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  users;
+  users = [];
+  searchTerm = '';
+  searchList = false;
+  filterList = [];
   ngOnInit() {
     this.getUsers();
   }
@@ -34,14 +37,27 @@ export class AppComponent implements OnInit {
       component: UserDetailsComponent,
       cssClass: 'send-deal-modal',
       componentProps: {
-        user: user
+        user
       }
     });
-
-    // modal.onDidDismiss().then((result) => {
-    //   this.retrieveData();
-    // });
     return await modal.present();
   }
+
+  openProfile(user) {
+    window.open(user.html_url, '', 'width=800,height=600');
+  }
+
+  filterItems(searchTerm) {
+    if (searchTerm !== '') {
+      this.filterList = this.users.filter(item => {
+        return item.login.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      });
+      this.searchList = true;
+    } else {
+      this.filterList = [];
+      this.searchList = false;
+    }
+  }
+
 
 }
